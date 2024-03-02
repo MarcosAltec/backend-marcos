@@ -1,6 +1,9 @@
 const Contato = require('./modelo');
 
-const contatos = [];
+const contatos = [
+    {nome: "marcos", email: "marcospassos", telefone: 4444},
+    {nome: "lucas", email: "lucasoliveira", telefone: 3333},
+];
 
 function adicionarContato(nome, email, telefone) {
     const novoContato = new Contato (nome, email, telefone);
@@ -12,18 +15,18 @@ function listarContatos() {
 }
 
 function buscarContato (nome) {
-    const nome = readline.question("Entre com o nome do contato: ");
     const buscou = contatos.find(contato => contato.nome === nome);
-    
+    return buscou
 }
 
-module.exports = Contato;
+function atualizarContato (nome, email, telefone) {
+    const buscar = contatos.find(contato => contato.nome === nome);
+    const contato = controlador.buscarContato(nome)
+    if (contato) {
+        console.log(contato);
+    } else {
+        console.log("FALHOU")
+    }   
+}
 
-
-
-
-
-
-const nome = readline.question("Entre com o nome do produto: ");
-const email = readline.question("Entre com o nome do produto: ");
-const telefone = readline.question("Entre com o nome do produto: ");
+module.exports = {adicionarContato, listarContatos, buscarContato};

@@ -19,10 +19,25 @@ function menu() {
 
 function escolherOpcao(opcao) {
     switch(opcao) {
-        case '1': controlador.listarContatos(); break;
-        case '2': controlador.buscar(); break;
+        case '1': {
+            const contatos = controlador.listarContatos();
+            contatos.forEach(contato => console.log(contato));
+            break;}
+
+        case '2': {
+            const nome = readline.question("Entre com o nome: ");
+            const contato = controlador.buscarContato(nome)
+            if (contato) {
+                console.log(contato);
+            } else {
+                console.log("FALHOU")
+            }            
+            break;}
+
         case '0': process.exit(0);
         default: console.log("Opcao invalida");
     }
     readline.question("Pressione ENTER para continuar...");
 }
+
+module.exports = {nome};
