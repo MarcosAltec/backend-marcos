@@ -1,20 +1,20 @@
 const express = require('express');
+const db = require('./db.json');
 
 const router = express.Router();
 
-const produtos = [{id: 1, nome: "Uva", preco: 10.00}]
+//const produtos = [{id: 1, nome: "Uva", preco: 10.00}, {id: 2, nome: "Uva", preco: 10.00}]
 
 router.get("/produtos", function(req, res){
-  res.json(produtos);
+  res.json(db);
 });
 
 router.get("/produtos/:produtoId", function(req, res){
-    const encontrado = produtos.find((produto) => produto.id == req.params.produtoId);
+    const encontrado = db.produtos.find((produto) => produto.id == req.params.produtoId);
   if (!encontrado) {
     res.status(404).json({msg: "Produto não encontrado"});
     return;
   }
-
   res.json(encontrado);
 });
 
@@ -24,15 +24,15 @@ router.post("/produtos", function(req, res){
     return;
   }
   const novo = {
-    id:produtos.length+1, 
+    id:db.produtos.length+1, 
     nome: req.body.nome, 
     preco: req.body.preco};
 
-  produtos.push(novo);
+  db.produtos.push(novo);
   
   res.status(201).json(novo);
 });
-
+/*
 router.put("/produtos/:produtoId", function(req, res){
     const encontrado = produtos.find((produto) => produto.id == req.params.produtoId);
   if (!encontrado) {
@@ -55,6 +55,6 @@ router.delete("/produtos/:produtoId", function(req, res){
   produtos.splice(posicao, 1);
   res.status(204).end();
 });
-  
+  */
 
 module.exports = router;
